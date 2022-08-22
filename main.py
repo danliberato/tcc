@@ -1,5 +1,3 @@
-from pathlib import Path
-
 from fastapi import FastAPI, APIRouter
 from dotenv import load_dotenv
 
