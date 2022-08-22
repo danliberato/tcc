@@ -1,18 +1,19 @@
-from fastapi import FastAPI
+from pathlib import Path
+
+from fastapi import FastAPI, APIRouter
 from dotenv import load_dotenv
 
+from api.api import api_router
+
 load_dotenv()
-app = FastAPI()
+
+root_router = APIRouter()
+app = FastAPI(title="TCC")
 
 
-@app.get("/")
+@app.get("/", status_code=200)
 async def root():
     return {"message": "Hello World"}
 
-
-@app.get("/user/{user_id}")
-async def get_user_by_id(user_id: str):
-    print("taheck")
-    return {"message": f"Hello {user_id}"}
-
-
+app.include_router(api_router)
+app.include_router(root_router)
