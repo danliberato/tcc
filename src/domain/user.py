@@ -1,10 +1,8 @@
-from uuid import uuid4
-
 from pydantic import BaseModel
 
 
 class User(BaseModel):
-    id: uuid4
+    id: str
     name: str
     email: str
     birthdate: str
