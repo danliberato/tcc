@@ -1,8 +1,9 @@
 uvicorn[standard]
-boto3==1.24.56
+boto3==1.24.75
 fastapi~=0.79.1
-python-dotenv~=0.20.0
-pydantic~=1.9.2
+python-dotenv~=0.21.0
+pydantic~=1.10.2
 uuid~=1.30
-botocore~=1.27.66
+botocore~=1.27.75
 python-magic
+python-multipart

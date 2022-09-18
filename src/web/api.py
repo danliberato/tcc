@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from src.api.endpoints import user, movie
+from src.web.endpoints import user, movie
 
 
 api_router = APIRouter()

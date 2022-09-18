@@ -5,7 +5,6 @@ import magic
 
 from botocore.exceptions import ClientError
 from boto3.s3.transfer import TransferConfig
-# from src.domain.exceptions.file_exception import
 
 # Set the desired multipart threshold value (5GB)
 MB = 1024 ** 2
@@ -31,10 +30,6 @@ def save_image(file_name, object_name):
 
     object_name += file_name[-4:len(file_name)]
     content_type = mime.from_file(file_name)
-
-    # if "image" not in content_type:
-    #     raise File
-
 
     # Upload the file
     try:
