@@ -1,31 +1,32 @@
 import datetime
+from typing import Optional
 
 from pydantic import BaseModel
 
 
 class AlertBase(BaseModel):
+    id: Optional[str] = None
     movie_name: str
     email: str
-    date: datetime.date
+    date: str
     title: str
     category: str
     image_url: str
 
-    def __int__(self, movie_name, email, date, title, category, image_url):
-        self.movie_name = movie_name
-        self.email = email
-        self.date = date
-        self.title = title
-        self.category = category
-        self.image_url = image_url
+    def __int__(self):
+        super.__init__(movie_name=self.movie_name, email=self.email, date=self.date,
+                           title=self.title, category=self.category, image_url=self.image_url)
 
 
 class AlertRequest(AlertBase):
-    pass
+    def __int__(self):
+        AlertBase.__init__(movie_name=self.movie_name, email=self.email, date=self.date,
+                           title=self.title, category=self.category, image_url=self.image_url)
 
 
-class AlertResponse(AlertBase):
+class AlertResponse(BaseModel):
     id: str
-    pass
 
-
+    def __int__(self):
+        AlertBase.__init__(movie_name=self.movie_name, email=self.email, date=self.date,
+                           title=self.title, category=self.category, image_url=self.image_url)

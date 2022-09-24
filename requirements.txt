@@ -1,6 +1,6 @@
 uvicorn[standard]
 boto3==1.24.80
-fastapi~=0.79.1
+fastapi>=0.85.0
 python-dotenv~=0.21.0
 pydantic~=1.10.2
 uuid~=1.30
