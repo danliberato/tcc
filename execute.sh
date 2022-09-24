@@ -11,7 +11,7 @@ case "$1" in
     ;;
 
     stop)
-        kill -9 `cat save_pid.txt`
+        kill -9 `cat app_pid.txt`
         rm app_pid.txt
     ;;
 
