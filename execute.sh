@@ -17,8 +17,8 @@ case "$1" in
 
     *)
       echo "Options are:"
-      echo "install | Install dependencies and build image"
+      echo "build | Install dependencies and build the project"
       echo "start | Start the application"
-      echo "start | Stop the application"
+      echo "stop | Stop the application"
     ;;
 esac
