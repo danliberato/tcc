@@ -2,21 +2,21 @@ import boto3
 from uuid import uuid4
 
 dynamodb = boto3.resource('dynamodb', region_name="us-east-1")
-table = dynamodb.Table('movie')
+table = dynamodb.Table('alerts')
 
 
-def save_movie(movie):
-    print(f"Saving movie - id {movie['id']}")
+def save_alert(alert):
+    print(f"Saving alerts - id {alert['id']}")
     try:
         response = table.put_item(
             Item={
-                'id': movie['id'],
-                'name': movie['name'],
-                'description': movie['description'],
-                'genre': movie['genre'],
-                'synopsis': movie['synopsis'],
-                'cover_url': movie['cover_url'],
-                'user_id': movie['user_id']
+                'id': alert['id'],
+                'movie_name': alert['movie_name'],
+                'user_name': alert['user_name'],
+                'date': alert['date'],
+                'title': alert['title'],
+                'category': alert['category'],
+                'image_url': alert['image_url']
             }
         )
         print(response)
@@ -26,12 +26,12 @@ def save_movie(movie):
         return False
 
 
-def get_movie(movie_id):
-    print(f"Retrieving movie - id {movie_id}")
+def get_movie(alert_id):
+    print(f"Retrieving alert - id {alert_id}")
     try:
         response = table.get_item(
             Key={
-                'id': movie_id
+                'id': alert_id
             }
         )
         return response['Item']
@@ -40,12 +40,12 @@ def get_movie(movie_id):
         return None
 
 
-def delete_movie(movie_id):
-    print(f"Deleting movie - id {movie_id}")
+def delete_movie(alert_id):
+    print(f"Deleting alert - id {alert_id}")
     try:
         response = table.delete_item(
             Key={
-                'id': movie_id
+                'id': alert_id
             }
         )
         return True
