@@ -14,7 +14,7 @@ def save_alert(alert):
             Item=alert.dict()
         )
         logging.info(f'Database response: {response}')
-        return response
+        return response['ResponseMetadata']['HTTPStatusCode']
     except Exception as e:
         logging.error(e)
         raise DatabaseError
@@ -35,12 +35,12 @@ def retrieve_alert_by_movie_id(movie_id):
         raise DatabaseError
 
 
-def delete_alert(alert_id):
-    print(f"Deleting alert - id {alert_id}")
+def delete_alert(movie_id):
+    print(f"Deleting alert - id {movie_id}")
     try:
         response = table.delete_item(
             Key={
-                'id': alert_id
+                'movie_id': movie_id
             }
         )
         logging.info(f'Database response: {response}')

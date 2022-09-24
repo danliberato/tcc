@@ -22,3 +22,8 @@ class AlertRequest(AlertBase):
 
 class AlertResponse(AlertBase):
     pass
+
+
+class DeleteAlertResponse(BaseModel):
+    movie_id: str
+    message: str
