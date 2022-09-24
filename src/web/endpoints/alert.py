@@ -26,7 +26,7 @@ async def create_alert(alert_request: AlertRequest):
 
 
 @router.get("/movie/{movie_id}", response_model=AlertResponse)
-async def retrieve_alert(movie_id):
+async def retrieve_alert(movie_id: str):
     print("Get Alert by movie_id")
     try:
         alert = get_alert_by_movie_use_case(movie_id)
@@ -41,7 +41,7 @@ async def retrieve_alert(movie_id):
 
 
 @router.delete("/movie/{movie_id}", response_model=DeleteAlertResponse)
-async def delete_alert(movie_id):
+async def delete_alert(movie_id: str):
     print("Delete Alert by movie_id")
     try:
         alert = delete_alert_by_movie_use_case(movie_id)
@@ -52,4 +52,4 @@ async def delete_alert(movie_id):
     except Exception as e:
         logging.error(e)
         raise HTTPException(status_code=500, detail=f"Unhandled Error: {type(e)} | Message {e}")
-    return DeleteAlertResponse(movie_id=movie_id, message="Alert successfully removed")
+    return DeleteAlertResponse(movieId=movie_id, message="Alert successfully removed")

@@ -7,8 +7,8 @@ def alert_request_to_base(request: AlertRequest):
 
 
 def alert_base_to_response(base: AlertBase):
-    res = AlertResponse(movie_id=base.movie_id, email=base.email, date=base.date,
-                        title=base.title, category=base.category, image_url=base.image_url)
+    res = AlertResponse(movieId=base.movie_id, email=base.email, date=base.date,
+                        title=base.title, category=base.category, imageUrl=base.image_url)
     return res
 
 
