@@ -7,6 +7,10 @@ def alert_request_to_base(request: AlertRequest):
 
 
 def alert_base_to_response(base: AlertBase):
-    return AlertResponse(movie_id=base.movie_id, email=base.email, date=base.date,
-                         title=base.title, category=base.category, image_url=base.image_url)
+    res = AlertResponse(movie_id=base.movie_id, email=base.email, date=base.date,
+                        title=base.title, category=base.category, image_url=base.image_url)
+    return res
 
+
+def db_alert_object_to_base(db_alert: dict):
+    return AlertBase.parse_obj(db_alert)

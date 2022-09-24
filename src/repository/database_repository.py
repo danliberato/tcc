@@ -1,4 +1,7 @@
 import boto3
+import logging
+
+from src.exceptions.exceptions import DatabaseError
 
 dynamodb = boto3.resource('dynamodb', region_name="us-east-1")
 table = dynamodb.Table('alerts')
@@ -6,10 +9,15 @@ table = dynamodb.Table('alerts')
 
 def save_alert(alert):
     print(f"Saving alerts - movie_id {alert.movie_id}")
-    response = table.put_item(
-        Item=alert.dict()
-    )
-    print(response)
+    try:
+        response = table.put_item(
+            Item=alert.dict()
+        )
+        logging.info(f'Database response: {response}')
+        return response
+    except Exception as e:
+        logging.error(e)
+        raise DatabaseError
 
 
 def retrieve_alert_by_movie_id(movie_id):
@@ -20,10 +28,11 @@ def retrieve_alert_by_movie_id(movie_id):
                 'movie_id': movie_id
             }
         )
+        logging.info(f'Database response: {response}')
         return response['Item']
     except Exception as e:
-        print(e)
-        return None
+        logging.error(e)
+        raise DatabaseError
 
 
 def delete_alert(alert_id):
@@ -34,7 +43,9 @@ def delete_alert(alert_id):
                 'id': alert_id
             }
         )
+        logging.info(f'Database response: {response}')
         return True
     except Exception as e:
-        print(e)
-        return False
+        logging.error(e)
+        raise DatabaseError
+
