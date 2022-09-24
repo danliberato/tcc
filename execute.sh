@@ -1,19 +1,20 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 case "$1" in
     build)
-        docker build -t javi_api .
-#        python -m pip install --upgrade pip
-#        python -m pip install --no-cache-dir -r requirements.txt
+#        docker build -t javi_api .
+        python3 -m pip install --upgrade pip
+        python3 -m pip install --no-cache-dir -r requirements.txt
     ;;
     start)
-#        nohup python -m uvicorn main:app --reload --host 0.0.0.0 --port 8080
-        docker run javi_api
+        python3 -m uvicorn main:app --reload --host 0.0.0.0 --port 8080
+#        docker run javi_api
     ;;
 
     stop)
-        docker stop api_$(echo $2)
-        docker rm api_$(echo $2)
+#        docker stop
+#        docker rm api_$(echo $2)
+        echo "Commando WIP"
     ;;
 
     *)
