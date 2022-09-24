@@ -2,19 +2,17 @@
 
 case "$1" in
     build)
-#        docker build -t javi_api .
         python3 -m pip install --upgrade pip
         python3 -m pip install --no-cache-dir -r requirements.txt
     ;;
     start)
-        python3 -m uvicorn main:app --reload --host 0.0.0.0 --port 8080
-#        docker run javi_api
+        nohup python3 -m uvicorn main:app --reload --host 0.0.0.0 --port 8080 > app.log 2>&1 &
+        echo $! > app_pid.txt
     ;;
 
     stop)
-#        docker stop
-#        docker rm api_$(echo $2)
-        echo "Commando WIP"
+        kill -9 `cat save_pid.txt`
+        rm app_pid.txt
     ;;
 
     *)
