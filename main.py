@@ -13,7 +13,7 @@ load_dotenv()
 
 root_router = APIRouter()
 app = FastAPI(title="UNIP 2022 - TCC")
-app.add_api_route("/health", health([healthy_condition]))
+app.add_api_route("/health", health([healthy_condition]), description="Healthcheck endpoint", include_in_schema=False)
 
 app.include_router(api_router)
 app.include_router(root_router)
