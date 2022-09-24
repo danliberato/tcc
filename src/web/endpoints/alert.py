@@ -5,7 +5,7 @@ from fastapi import APIRouter, HTTPException
 from src.domain.alert import AlertRequest, AlertResponse, DeleteAlertResponse
 from src.usecase.create_alert_usecase import create_alert_use_case, get_alert_by_movie_use_case, \
     delete_alert_by_movie_use_case
-from helper.alert_mapper import alert_base_to_response, alert_request_to_base
+from src.helper.alert_mapper import alert_base_to_response, alert_request_to_base
 from src.exceptions.exceptions import UnableToSaveAlertError, UnableToRetrieveAlertError, UnableToDeleteAlertError
 
 router = APIRouter()

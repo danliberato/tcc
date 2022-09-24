@@ -2,7 +2,7 @@ import logging
 
 from src.repository import database_repository
 from src.domain.alert import AlertBase
-from helper.alert_mapper import db_alert_object_to_base
+from src.helper.alert_mapper import db_alert_object_to_base
 from src.exceptions.exceptions import UnableToSaveAlertError, UnableToRetrieveAlertError, DatabaseError
 
 

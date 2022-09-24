@@ -16,7 +16,8 @@ RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
 
 # copy source code
-COPY src /app
+COPY main.py /app
+COPY src /app/src
 
 EXPOSE 8080
 
