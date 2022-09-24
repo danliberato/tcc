@@ -5,19 +5,19 @@ table = dynamodb.Table('alerts')
 
 
 def save_alert(alert):
-    print(f"Saving alerts - id {alert.id}")
+    print(f"Saving alerts - movie_id {alert.movie_id}")
     response = table.put_item(
         Item=alert.dict()
     )
     print(response)
 
 
-def get_movie(alert_id):
-    print(f"Retrieving alert - id {alert_id}")
+def retrieve_alert_by_movie_id(movie_id):
+    print(f"Retrieving alert - movie_id {movie_id}")
     try:
         response = table.get_item(
             Key={
-                'id': alert_id
+                'movie_id': movie_id
             }
         )
         return response['Item']
@@ -26,7 +26,7 @@ def get_movie(alert_id):
         return None
 
 
-def delete_movie(alert_id):
+def delete_alert(alert_id):
     print(f"Deleting alert - id {alert_id}")
     try:
         response = table.delete_item(
