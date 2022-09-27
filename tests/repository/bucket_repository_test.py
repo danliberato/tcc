@@ -1,7 +1,7 @@
 import unittest
 
 from uuid import uuid4
-from src.repository.bucket_repository import save_image
+from src.dataprovider.bucket_repository import save_image
 
 
 class Bucket(unittest.TestCase):

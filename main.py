@@ -1,8 +1,10 @@
 from fastapi import FastAPI, APIRouter
 from dotenv import load_dotenv
 from fastapi_health import health
+from fastapi_utils.tasks import repeat_every
 
 from src.web.api import api_router
+from src.usecase.send_email_usecase import send_alert_emails
 
 
 def healthy_condition():
@@ -17,3 +19,9 @@ app.add_api_route("/health", health([healthy_condition]), description="Healthche
 
 app.include_router(api_router)
 app.include_router(root_router)
+
+
+@app.on_event("startup")
+@repeat_every(seconds=1)
+def email_job() -> None:
+    send_alert_emails()

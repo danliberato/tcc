@@ -2,7 +2,7 @@ from fastapi import File
 
 from uuid import uuid4
 
-from src.repository import bucket_repository
+from src.dataprovider import bucket_repository
 from src.domain.movie import MovieResponse
 
 

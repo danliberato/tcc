@@ -1,7 +1,7 @@
 import unittest
 
 from uuid import uuid4
-from src.repository.database_repository import save_movie, get_movie, delete_movie
+from src.dataprovider.database_repository import save_movie, get_movie, delete_movie
 
 movie_id = "uuid_123_test"
 
