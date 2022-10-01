@@ -1,3 +1,6 @@
+import os
+import logging
+
 from fastapi import FastAPI, APIRouter
 from dotenv import load_dotenv
 from fastapi_health import health
@@ -20,8 +23,10 @@ app.add_api_route("/health", health([healthy_condition]), description="Healthche
 app.include_router(api_router)
 app.include_router(root_router)
 
+if os.environ.get("ENVIRONMENT") == 'PROD':
+    logging.info("PROD environment detected, starting email job")
 
-@app.on_event("startup")
-@repeat_every(seconds=1)
-def email_job() -> None:
-    send_alert_emails()
+    @app.on_event("startup")
+    @repeat_every(seconds=1)
+    def email_job() -> None:
+        send_alert_emails()
