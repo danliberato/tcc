@@ -1,0 +1,100 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: tcc-api
+  labels:
+    account: tcc-api
+spec:
+  containers:
+  - name: tcc-api
+    image: dandaniel/tcc
+    ports:
+      - containerPort: 8080
+---
+
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: payment-service-ms
+# spec:
+#   {{- if eq .Values.pods.resources.hpa.enabled false }}
+#   replicas: {{ .Values.pods.replicas }}
+#   {{- end }}
+#   selector:
+#     matchLabels:
+#       app: payment-service-ms
+#       release: {{ .Release.Name }}
+#   template:
+#     metadata:
+#       labels:
+#         app: payment-service-ms
+#         release: {{ .Release.Name }}
+#     spec:
+#       serviceAccountName: tcc-api
+#       securityContext:
+#         runAsNonRoot: true
+#         runAsUser: 1000
+#         runAsGroup: 1000
+#       terminationGracePeriodSeconds: 180
+#       imagePullSecrets:
+#         - name: acr-auth
+#       containers:
+#         - name: payment-service
+#           args: ["source /vault/secrets/config && java $JAVA_OPTS -javaagent:newrelic-agent.jar -Dnewrelic.config.file=newrelic.yml -Dnewrelic.environment=prod -jar payment-service.jar"]
+#           command: ["sh", "-c"]
+#           image: "beesmicroservices.azurecr.io/payment-service:{{ .Chart.AppVersion }}"
+#           imagePullPolicy: Always
+#           ports:
+#             - name: deployment-port
+#               containerPort: 8080
+#           env:
+#             - name: ENVIRONMENT
+#               value: DEV
+#           readinessProbe:
+#             httpGet:
+#               path: /actuator/health
+#               port: deployment-port
+#             initialDelaySeconds: {{ .Values.pods.resources.readinessProbe.initialDelaySeconds }}
+#             failureThreshold: {{ .Values.pods.resources.readinessProbe.failureThreshold }}
+#             timeoutSeconds: {{ .Values.pods.resources.readinessProbe.timeoutSeconds }}
+#             periodSeconds: {{ .Values.pods.resources.readinessProbe.periodSeconds }}
+#           livenessProbe:
+#             httpGet:
+#               path: /actuator/health
+#               port: deployment-port
+#             initialDelaySeconds: {{ .Values.pods.resources.livenessProbe.initialDelaySeconds }}
+#             failureThreshold: {{ .Values.pods.resources.readinessProbe.failureThreshold }}
+#             timeoutSeconds: {{ .Values.pods.resources.readinessProbe.timeoutSeconds }}
+#             periodSeconds: {{ .Values.pods.resources.readinessProbe.periodSeconds }}
+#           resources:
+#             limits:
+#               cpu: {{ .Values.pods.resources.limits.cpu }}
+#               memory: {{ .Values.pods.resources.limits.memory }}
+#             requests:
+#               cpu: {{ .Values.pods.resources.requests.cpu }}
+#               memory: {{ .Values.pods.resources.requests.memory }}
+# ---
+# apiVersion: autoscaling/v2beta2
+# kind: HorizontalPodAutoscaler
+# metadata:
+#   name: payment-service-ms
+# spec:
+#   scaleTargetRef:
+#     apiVersion: apps/v1
+#     kind: Deployment
+#     name: payment-service-ms
+#   minReplicas: 1
+#   maxReplicas: 2
+#   metrics:
+#     - type: Resource
+#       resource:
+#         name: memory
+#         target:
+#           type: Utilization
+#           averageUtilization: {{ .Values.pods.resources.hpa.averageMemoryUsage }}
+#     - type: Resource
+#       resource:
+#         name: cpu
+#         target:
+#           type: Utilization
+#           averageUtilization: {{ .Values.pods.resources.hpa.averageCpuUsage }}

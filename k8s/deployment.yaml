@@ -1,0 +1,21 @@
+# this file configs the deployment, which contains replicaset configurations
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tcc-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: tcc-api # look for all pods which "app" name is "tcc-api"
+  template:
+    metadata:
+      name: tcc-api
+      labels:
+        app: tcc-api
+    spec:
+      containers:
+      - name: tcc-api
+        image: dandaniel/tcc
+        ports:
+          - containerPort: 8080

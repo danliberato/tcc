@@ -1,0 +1,13 @@
+# this file configs the load balance and the service discovery
+apiVersion: v1
+kind: Service
+metadata:
+  name: tcc-api
+spec:
+  selector:
+    app: tcc-api # look for all pods which "app" name is "tcc-api"
+  type: LoadBalancer # config which enables the external access to the cluster
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
