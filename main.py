@@ -2,6 +2,7 @@ import os
 import logging
 
 from fastapi import FastAPI, APIRouter
+from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 from fastapi_health import health
 from fastapi_utils.tasks import repeat_every
@@ -18,6 +19,22 @@ load_dotenv()
 
 root_router = APIRouter()
 app = FastAPI(title="UNIP 2022 - TCC")
+
+origins = [
+    "http://localhost",
+    "http://localhost:8080",
+    "http://localhost:3000",
+]
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 app.add_api_route("/health", health([healthy_condition]), description="Healthcheck endpoint", include_in_schema=False)
 
 app.include_router(api_router)
