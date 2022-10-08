@@ -27,6 +27,7 @@ $ minikube kubectl -- get pods -A
  Forward local port to the k8s container
 ```shell
 $ minikube kubectl -- port-forward pod/tcc 8080:8080
+```
 
 Access you application with browser (localhost:8080/docs)
 
